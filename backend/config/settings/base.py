@@ -8,7 +8,7 @@ from decouple import Csv, config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = config("DJANGO_SECRET_KEY", default="dev-insecure-secret-key-change-me")
+SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="localhost,127.0.0.1", cast=Csv())
 
@@ -90,11 +90,11 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("POSTGRES_DB", default="savings_goals"),
-            "USER": config("POSTGRES_USER", default="postgres"),
-            "PASSWORD": config("POSTGRES_PASSWORD", default="postgres"),
-            "HOST": config("POSTGRES_HOST", default="localhost"),
-            "PORT": config("POSTGRES_PORT", default="5432"),
+            "NAME": config("POSTGRES_DB"),
+            "USER": config("POSTGRES_USER"),
+            "PASSWORD": config("POSTGRES_PASSWORD"),
+            "HOST": config("POSTGRES_HOST"),
+            "PORT": config("POSTGRES_PORT"),
         }
     }
 
@@ -133,8 +133,13 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    # ACCESS_TOKEN_LIFETIME is in minutes, REFRESH_TOKEN_LIFETIME is in days.
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=config("ACCESS_TOKEN_LIFETIME", default=15, cast=int)
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        days=config("REFRESH_TOKEN_LIFETIME", default=7, cast=int)
+    ),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
@@ -143,9 +148,5 @@ SIMPLE_JWT = {
     "USER_ID_CLAIM": "user_id",
 }
 
-CORS_ALLOWED_ORIGINS = config(
-    "CORS_ALLOWED_ORIGINS",
-    default="http://localhost:5173,http://127.0.0.1:5173",
-    cast=Csv(),
-)
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", cast=Csv())
 CORS_ALLOW_CREDENTIALS = True
