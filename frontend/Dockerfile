@@ -17,6 +17,7 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 FROM nginx:alpine AS prod
 COPY --from=build /app/dist /usr/share/nginx/html
+WORKDIR /app
 EXPOSE 8080
 RUN sed -i 's#/var/run/nginx.pid#/tmp/nginx.pid#' /etc/nginx/nginx.conf
 RUN touch /run/nginx.pid && chown nginx:nginx /run/nginx.pid
