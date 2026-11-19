@@ -1,7 +1,7 @@
 # Security floors (sec.no_critical_cves): compatible-release specifiers resolve
 # to the newest patch on the same release line; see SECURITY.md.
 Django~=5.2.11
-djangorestframework~=3.16.1
+djangorestframework~=3.18.3
 djangorestframework-simplejwt~=5.5.1
 psycopg2-binary==2.9.9
 django-cors-headers==4.4.0
