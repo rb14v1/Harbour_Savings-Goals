@@ -17,10 +17,6 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 FROM nginx:alpine AS prod
 COPY --from=build /app/dist /usr/share/nginx/html
-RUN apk add --no-cache python3 py3-pip
-COPY backend/ /app/backend/
-RUN if [ -f /app/backend/requirements.txt ]; then python3 -m venv /opt/venv && /opt/venv/bin/pip install --no-cache-dir -r /app/backend/requirements.txt; fi
-ENV PATH=/opt/venv/bin:$PATH
 WORKDIR /app
 EXPOSE 8080
 RUN sed -i 's#/var/run/nginx.pid#/tmp/nginx.pid#' /etc/nginx/nginx.conf
