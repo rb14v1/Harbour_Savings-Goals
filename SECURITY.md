@@ -18,7 +18,6 @@ No dependency may ship with a known **CRITICAL** or **HIGH** severity CVE.
 | Django | `==5.2.9` | `~=5.2.11` (latest 5.2.x LTS patch) | HIGH CVEs incl. CVE-2026-1287 and CVE-2026-15307 |
 | djangorestframework | `~=3.16.1` | `>3.16.1,<3.18` (excludes vulnerable 3.16.1) | HIGH CVEs reported against 3.16.1 (e.g. CVE-2026-114137) |
 | djangorestframework-simplejwt | `==5.3.1` | `~=5.5.1` | CVE-2024-22513 |
-| react-router-dom / react-router | `~6.30.6` | `>6.30.6 <7.0.0` (excludes vulnerable 6.30.6) | HIGH advisory reported against 6.30.6 |
 | Other frontend deps | caret ranges (`^`) | exact pins matching the lockfile | Prevent unreviewed version drift |
 
 The backend uses compatible-release specifiers (`~=`). They set a patched minimum
