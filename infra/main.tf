@@ -1,4 +1,4 @@
-# Serves components: backend, frontend
+# Serves components: backend-api, web
 terraform {
   required_providers {
     azurerm = {
@@ -22,8 +22,8 @@ provider "azurerm" {
 
 resource "azurerm_postgresql_flexible_server" "postgresql" {
   tags = var.common_tags
-  name                   = "psql-save-project-test"
-  resource_group_name    = "save-project-test"
+  name                   = "psql-savings-test-central"
+  resource_group_name    = "savings-test-central"
   location               = "swedencentral"
   version                = "16"
   sku_name               = "B_Standard_B1ms"
@@ -58,7 +58,7 @@ data "azurerm_private_dns_zone" "postgresql_dns_zone" {
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgresql_dns_zone_link" {
   tags = var.common_tags
-  name                  = "link-save-project-test"
+  name                  = "link-savings-test-central"
   resource_group_name   = var.hub_resource_group
   private_dns_zone_name = data.azurerm_private_dns_zone.postgresql_dns_zone.name
   virtual_network_id    = var.vnet_id
@@ -66,8 +66,8 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgresql_dns_zone_li
 
 resource "azurerm_private_endpoint" "postgresql_pe" {
   tags = var.common_tags
-  name                = "pe-psql-save-project-test"
-  resource_group_name = "save-project-test"
+  name                = "pe-psql-savings-test-central"
+  resource_group_name = "savings-test-central"
   location            = "swedencentral"
   subnet_id           = var.subnet_id
 
