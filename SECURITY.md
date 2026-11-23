@@ -16,9 +16,9 @@ No dependency may ship with a known **CRITICAL** or **HIGH** severity CVE.
 | Package | Previous | Now | Reason |
 |---|---|---|---|
 | Django | `==5.2.9` | `~=5.2.11` (latest 5.2.x LTS patch) | HIGH CVEs incl. CVE-2026-1287 and CVE-2026-15307 |
-| djangorestframework | `==3.16.1` | `~=3.16.1` (latest 3.16.x patch) | HIGH CVEs reported against 3.16.1 |
+| djangorestframework | `~=3.16.1` | `>3.16.1,<3.18` (excludes vulnerable 3.16.1) | HIGH CVEs reported against 3.16.1 (e.g. CVE-2026-114137) |
 | djangorestframework-simplejwt | `==5.3.1` | `~=5.5.1` | CVE-2024-22513 |
-| react-router-dom / react-router | `6.30.6` | `~6.30.6` (latest 6.30.x patch) | Advisory reported against 6.30.6 |
+| react-router-dom / react-router | `~6.30.6` | `>6.30.6 <7.0.0` (excludes vulnerable 6.30.6) | HIGH advisory reported against 6.30.6 |
 | Other frontend deps | caret ranges (`^`) | exact pins matching the lockfile | Prevent unreviewed version drift |
 
 The backend uses compatible-release specifiers (`~=`). They set a patched minimum
@@ -33,8 +33,7 @@ ships and has been adopted.
 
 | CVE | Package / version | Severity | Justification & mitigation | Owner | Review date |
 |---|---|---|---|---|---|
-| Advisories reported against djangorestframework 3.16.1 (e.g. CVE-2026-114137) | djangorestframework | HIGH | Check whether a fixed release exists on the 3.16.x line. If the fix is only in a newer minor release, raise the floor in `backend/requirements.txt` after confirming compatibility with Django 5.2. | Backend maintainers | 2027-02-19 |
-| Advisory reported against react-router 6.30.6 | react-router / react-router-dom | HIGH | Check that the regenerated lockfile resolves to a fixed 6.30.x release. If the fix is only in v7, plan the v6 to v7 migration. | Frontend maintainers | 2027-02-19 |
+| _None currently._ | — | — | The known HIGH advisories against djangorestframework 3.16.1 and react-router 6.30.6 have fixed releases. Those versions are now excluded by the specifiers in `backend/requirements.txt` and `frontend/package.json`, so they are remediated, not accepted. | Backend & frontend maintainers | 2027-02-23 |
 
 ## CI scanning
 
